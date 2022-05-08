@@ -44,7 +44,6 @@ public class PlayerCriteriaRepository {
         return new PageImpl<>(typedQuery.getResultList(), pageable, playersCount);
     }
 
-
     private Predicate getPredicate(PlayerSearchCriteria playerSearchCriteria, Root<Player> playerRoot) {
         List<Predicate> predicates = new ArrayList<>();
         if (Objects.nonNull(playerSearchCriteria.getBanned())) {
@@ -69,16 +68,16 @@ public class PlayerCriteriaRepository {
             predicates.add(criteriaBuilder.like(playerRoot.get("title"), "%" + playerSearchCriteria.getTitle() + "%"));
         }
         if (Objects.nonNull(playerSearchCriteria.getMaxExperience())) {
-            predicates.add(criteriaBuilder.greaterThanOrEqualTo(playerRoot.get("experience"), playerSearchCriteria.getMaxExperience()));
+            predicates.add(criteriaBuilder.lessThanOrEqualTo(playerRoot.get("experience"), playerSearchCriteria.getMaxExperience()));
         }
         if (Objects.nonNull(playerSearchCriteria.getMinExperience())) {
-            predicates.add(criteriaBuilder.lessThanOrEqualTo(playerRoot.get("experience"), playerSearchCriteria.getMinExperience()));
+            predicates.add(criteriaBuilder.greaterThanOrEqualTo(playerRoot.get("experience"), playerSearchCriteria.getMinExperience()));
         }
         if (Objects.nonNull(playerSearchCriteria.getMaxLevel())) {
-            predicates.add(criteriaBuilder.greaterThanOrEqualTo(playerRoot.get("level"), playerSearchCriteria.getMaxLevel()));
+            predicates.add(criteriaBuilder.lessThanOrEqualTo(playerRoot.get("level"), playerSearchCriteria.getMaxLevel()));
         }
         if (Objects.nonNull(playerSearchCriteria.getMinLevel())) {
-            predicates.add(criteriaBuilder.lessThanOrEqualTo(playerRoot.get("level"), playerSearchCriteria.getMinLevel()));
+            predicates.add(criteriaBuilder.greaterThanOrEqualTo(playerRoot.get("level"), playerSearchCriteria.getMinLevel()));
         }
         return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
     }

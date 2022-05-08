@@ -135,7 +135,7 @@ public class GetAllTest extends AbstractTest {
 
     //test7
     @Test
-    public void getAllWithFiltersBannedMaxLevel() throws Exception {
+    public void getAllWithFiltersBanned0MaxLevel() throws Exception {
         ResultActions resultActions = mockMvc.perform(get("/rest/players?banned=false&maxLevel=20"))
                 .andExpect(status().isOk());
 

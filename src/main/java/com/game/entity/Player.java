@@ -7,6 +7,7 @@ import java.util.Date;
 public class Player {
     // id игрока
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(nullable = false, length = 12)
     private String name; //Имя персонажа (до 12 знаков включительно)
